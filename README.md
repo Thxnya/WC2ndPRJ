@@ -8,12 +8,12 @@
   
 ### 2. Linux
   - top(O)
-  - ls -l(미완)
+  - ls -l(O)
 
 ### 3. DL
   - LeNet-5(O)
 
 ### 4. Web APP
-  - 환율 정보(진행중)
+  - 환율 정보(O)
   - DB(미완)
   - Login(미완)
