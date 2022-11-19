@@ -2,27 +2,50 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup as bs
 import matplotlib.pyplot as plt
+import matplotlib
 from datetime import datetime
+matplotlib.use('SVG')
 
-def crawling():
-    # 1~10페이지까지 날짜와 환율 모두 가져오기
+# https://finance.naver.com/marketindex/worldDailyQuote.naver?fdtc=4&marketindexCd=FX_USDPHP&page=1
+
+def crawling(exc='USDKRW'):
+    
     # 빈 리스트 생성
     date_lst = []
     exchange_lst = []
 
-    # 환율정보 1~5페이지 크롤링
-    for p in range(1,6):
-        url = f'https://finance.naver.com/marketindex/exchangeDailyQuote.nhn?marketindexCd=FX_USDKRW&page={p}'
 
-        html = requests.get(url)
+    if exc[3:6] == 'KRW':
+        # 1~10페이지까지 날짜와 환율 모두 가져오기
+        # 환율정보 1~5페이지 크롤링(USD/KRW EUR/KRW JPY/KRW CNY/KRW)
+        for p in range(1,6):
+            url = f'https://finance.naver.com/marketindex/exchangeDailyQuote.nhn?marketindexCd=FX_{exc}&page={p}'
 
-        soup = bs(html.text, 'html.parser')
+            html = requests.get(url)
 
-        for i in range(10):
-            date_lst.append(soup.select('.date')[i].text)
+            soup = bs(html.text, 'html.parser')
 
-        for j in range(0,19,2):
-            exchange_lst.append(soup.select('.num')[j].text.replace(',', ''))
+            for i in range(10):
+                date_lst.append(soup.select('.date')[i].text)
+
+            for j in range(0,19,2):
+                exchange_lst.append(soup.select('.num')[j].text.replace(',', ''))
+
+    else:
+        # 환율정보 1~7페이지 크롤링(USD/PHP USD/LAK USD/MMK USD/VND)
+        for p in range(1,8):
+            url = f'https://finance.naver.com/marketindex/worldDailyQuote.naver?fdtc=4&marketindexCd=FX_{exc}&page={p}'
+
+            html = requests.get(url)
+
+            soup = bs(html.text, 'html.parser')
+
+            for i in range(7):
+                date_lst.append(soup.select('.date')[i].text.strip())
+
+            for j in range(0,19,3):
+                exchange_lst.append(soup.select('.num')[j].text.strip().replace(',', ''))
+
 
     date_lst.reverse()
     exchange_lst.reverse()
@@ -33,7 +56,8 @@ def crawling():
 
     return df
 
-def graph(df):
+def graph(df, exc='USDKRW'):
+    plt.figure()
     # 그래프 크기 지정하기 = 너비, 높이
     plt.rcParams['figure.figsize'] = (16,4)
     # 선의 두께 지정
@@ -62,4 +86,4 @@ def graph(df):
     plt.gca().spines['left'].set_visible(False)
     plt.gca().spines['bottom'].set_visible(False)
 
-    plt.savefig('./static/img/grp.png')
+    plt.savefig(f'./static/img/graph_{exc}.jpg')

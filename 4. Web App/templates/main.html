@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>환율</title>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    </head>
+    <body>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item active" id="USDKRW" role="presentation">
+                <a>USD/KRW</a>
+            </li>
+            <li class="nav-item" id="EURKRW" role="presentation">
+                <a>EUR/KRW</a>
+            </li>
+            <li class="nav-item" id="JPYKRW" role="presentation">
+                <a>JPY/KRW</a>
+            </li>
+            <li class="nav-item" id="CNYKRW" role="presentation">
+                <a>CNY/KRW</a>
+            </li>
+            <li class="nav-item" id="USDPHP" role="presentation">
+                <a>USD/PHP</a>
+            </li>
+            <li class="nav-item" id="USDLAK" role="presentation">
+                <a>USD/LAK</a>
+            </li>
+            <li class="nav-item" id="USDMMK" role="presentation">
+                <a>USD/MMK</a>
+            </li>
+            <li class="nav-item" id="USDVND" role="presentation">
+                <a>USD/VND</a>
+            </li>
+          </ul>
+        
+        <iframe src="http://127.0.0.1:5000/exchanges?exc=USDKRW" id="graph" style="height:500px; width:1700px; border: none;"></iframe>
+        
+    
+
+        <script>
+            $('#myTab li').on('click', function () {
+                $("#USDKRW").removeClass("active");
+                $("#EURKRW").removeClass("active");
+                $("#JPYKRW").removeClass("active");
+                $("#CNYKRW").removeClass("active");
+                $("#USDPHP").removeClass("active");
+                $("#USDLAK").removeClass("active");
+                $("#USDMMK").removeClass("active");
+                $("#USDVND").removeClass("active");
+                $(this).addClass("active");
+
+                var excid = this.id
+
+                $.ajax({
+                    url:'http://127.0.0.1:5000/exchanges',
+                    data:{
+                        exc : excid
+                    },
+                    success:function(data){
+                        document.all.graph.src="http://127.0.0.1:5000/exchanges?exc=" + excid;
+                    }
+                })
+            })
+
+        
+    
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+    </body>
+<html>
