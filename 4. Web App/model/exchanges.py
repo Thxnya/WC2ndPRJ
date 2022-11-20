@@ -57,9 +57,8 @@ def crawling(exc='USDKRW'):
     return df
 
 def graph(df, exc='USDKRW'):
-    plt.figure()
     # 그래프 크기 지정하기 = 너비, 높이
-    plt.rcParams['figure.figsize'] = (16,4)
+    plt.figure(figsize=(16,4))
     # 선의 두께 지정
     plt.rcParams['lines.linewidth'] = 2
 
@@ -86,4 +85,4 @@ def graph(df, exc='USDKRW'):
     plt.gca().spines['left'].set_visible(False)
     plt.gca().spines['bottom'].set_visible(False)
 
-    plt.savefig(f'./static/img/graph_{exc}.jpg')
+    plt.savefig(f'./static/img/graph_{exc}.png')
