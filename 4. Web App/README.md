@@ -9,5 +9,9 @@
  - Jquery -> ajax 형태로 정보전환
 
 ### TimeSeries DB(미완)
+ - Oracle -> 회원정보 테이블(O), 회원가입(X)
+ - 환율 정보 데이터 수집(X)
 
 ### Login(미완)
+ - DB 체크 후 로그인(O)
+ - 세션 유지 및 로그아웃(X)
