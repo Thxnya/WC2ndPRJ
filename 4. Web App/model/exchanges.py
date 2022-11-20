@@ -6,8 +6,6 @@ import matplotlib
 from datetime import datetime
 matplotlib.use('SVG')
 
-# https://finance.naver.com/marketindex/worldDailyQuote.naver?fdtc=4&marketindexCd=FX_USDPHP&page=1
-
 def crawling(exc='USDKRW'):
     
     # 빈 리스트 생성
