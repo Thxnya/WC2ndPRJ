@@ -6,7 +6,7 @@
  - Matplotlib -> 수집된 데이터로 그래프 그리고 이미지 파일로 저장
  - Flask -> 웹 구현
  - Bootstrap -> 웹페이지에 탭 구현
- - Jquery -> ajax 형태로 페이지 이동없이 정보전환
+ - Jquery -> ajax 형태로 정보전환
 
 ### TimeSeries DB(미완)
 
